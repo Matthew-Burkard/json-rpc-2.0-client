@@ -1,0 +1,5 @@
+.idea/
+JsonRpc2/bin/
+JsonRpc2/obj/
+ClientTester/
+JsonRpcClient.sln.DotSettings.user
