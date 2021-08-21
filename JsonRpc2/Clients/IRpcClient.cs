@@ -7,11 +7,11 @@ namespace JsonRpc2.Clients
 {
     public interface IRpcClient
     {
-        const int ParseError =-32700;
+        const int ParseError = -32700;
         const int InvalidRequest = -32600;
-        const int MethodNotFound =-32601;
-        const int InvalidParams =-32602;
-        const int InternalError =-32603;
+        const int MethodNotFound = -32601;
+        const int InvalidParams = -32602;
+        const int InternalError = -32603;
 
         protected static string GenId()
         {
@@ -21,7 +21,7 @@ namespace JsonRpc2.Clients
         protected static object HandleJson(string data)
         {
             var resp = JsonConvert.DeserializeObject<RpcResponse>(data);
-            if (resp is {Error: { }})
+            if (resp is { Error: { } })
             {
                 throw resp.Error.Code switch
                 {
