@@ -1,9 +1,9 @@
 using System;
-using JsonRpc2.Exceptions;
-using JsonRpc2.JsonRpcObjects;
+using JsonRpcClient.Exceptions;
+using JsonRpcClient.JsonRpcObjects;
 using Newtonsoft.Json;
 
-namespace JsonRpc2.Clients
+namespace JsonRpcClient.Clients
 {
     public interface IRpcClient
     {

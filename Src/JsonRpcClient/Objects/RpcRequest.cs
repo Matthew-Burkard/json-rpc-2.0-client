@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace JsonRpc2.JsonRpcObjects
+namespace JsonRpcClient.JsonRpcObjects
 {
     public class RpcRequest
     {

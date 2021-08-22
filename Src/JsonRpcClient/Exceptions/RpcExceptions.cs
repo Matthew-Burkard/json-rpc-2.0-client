@@ -1,6 +1,6 @@
 using System;
 
-namespace JsonRpc2.Exceptions
+namespace JsonRpcClient.Exceptions
 {
     public class RpcError : Exception
     {

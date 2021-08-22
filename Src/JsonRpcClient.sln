@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonRpc2", "JsonRpc2\JsonRpc2.csproj", "{E7E707AB-8CFC-407A-9D2F-AF30F5317A04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonRpcClient", "JsonRpcClient\JsonRpcClient.csproj", "{E7E707AB-8CFC-407A-9D2F-AF30F5317A04}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientTests", "ClientTests\ClientTests.csproj", "{C79B7A2E-34FC-49CE-BDA1-527567081557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +14,9 @@ Global
 		{E7E707AB-8CFC-407A-9D2F-AF30F5317A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7E707AB-8CFC-407A-9D2F-AF30F5317A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7E707AB-8CFC-407A-9D2F-AF30F5317A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C79B7A2E-34FC-49CE-BDA1-527567081557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C79B7A2E-34FC-49CE-BDA1-527567081557}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C79B7A2E-34FC-49CE-BDA1-527567081557}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C79B7A2E-34FC-49CE-BDA1-527567081557}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

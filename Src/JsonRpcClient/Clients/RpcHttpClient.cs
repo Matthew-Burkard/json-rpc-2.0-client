@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using JsonRpc2.JsonRpcObjects;
+using JsonRpcClient.JsonRpcObjects;
 using Newtonsoft.Json;
 
-namespace JsonRpc2.Clients
+namespace JsonRpcClient.Clients
 {
     public abstract class RpcHttpClient : IRpcClient
     {
