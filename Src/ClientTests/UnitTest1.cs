@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JsonRpcClient.Clients;
 using Newtonsoft.Json;
 using NUnit.Framework;
 
@@ -13,26 +12,59 @@ namespace ClientTests
         [SetUp]
         public void Setup()
         {
-            _client = new TestClient("http://localhost:8000/api/v1");
+            _client = new TestClient();
         }
 
         [Test]
-        public async Task Test1()
+        public async Task TestRequest()
         {
-            Assert.AreEqual(await _client.GetStrings(), new List<string>());
+            Assert.AreEqual(new List<string> { "TestRequest" }, await _client.TestRequest());
+        }
+
+        [Test]
+        public async Task TestParamsRequest()
+        {
+            var testParams = new List<string> { "test1", "test2", "test3" };
+            Assert.AreEqual(testParams, await _client.TestParamsRequest(testParams));
+        }
+
+        [Test]
+        public async Task TestNotification()
+        {
+            await _client.TestNotification();
+            Assert.Pass();
+        }
+
+        [Test]
+        public async Task TestParamsNotification()
+        {
+            await _client.TestParamsNotification(new List<string>());
+            Assert.Pass();
         }
     }
 
-    public class TestClient : RpcHttpClient
+    public class TestClient : RpcTestClient
     {
-        public TestClient(string baseUri) : base(baseUri)
+        public async Task<List<string>> TestRequest()
         {
+            var v = await Request("test_request");
+            return JsonConvert.DeserializeObject<List<string>>(v.ToString()!);
         }
 
-        public async Task<List<string>> GetStrings()
+        public async Task<List<string>> TestParamsRequest(List<string> strings)
         {
-            var v = await Call("get_props");
+            var v = await Request("test_params_request", strings);
             return JsonConvert.DeserializeObject<List<string>>(v.ToString()!);
+        }
+
+        public async Task TestNotification()
+        {
+            await Notify("test_notification");
+        }
+
+        public async Task TestParamsNotification(List<string> strings)
+        {
+            await Notify("test_params_notification", strings);
         }
     }
 }
