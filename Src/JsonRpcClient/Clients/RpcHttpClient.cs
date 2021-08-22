@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace JsonRpcClient.Clients
 {
-    public abstract class RpcHttpClient : IRpcClient
+    public abstract class RpcHttpClient : RpcClient
     {
         private readonly HttpClient _client = new();
 
@@ -20,28 +20,7 @@ namespace JsonRpcClient.Clients
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        protected async Task<object> Call(string method)
-        {
-            var request = new RpcRequest
-            {
-                Id = IRpcClient.GenId(),
-                Method = method
-            };
-            return await Call(request);
-        }
-
-        protected async Task<object> Call(string method, object parameters)
-        {
-            var request = new RpcRequest
-            {
-                Id = IRpcClient.GenId(),
-                Method = method,
-                Params = parameters
-            };
-            return await Call(request);
-        }
-
-        private async Task<object> Call(RpcRequest request)
+        protected override async Task<string> SendRequest(RpcRequest request)
         {
             var response = await _client.PostAsync(
                 "",
@@ -51,8 +30,19 @@ namespace JsonRpcClient.Clients
                     "application/json"
                 )
             );
-            var json = await response.Content.ReadAsStringAsync();
-            return IRpcClient.HandleJson(json);
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        protected override async Task SendNotification(RpcRequest request)
+        {
+            await _client.PostAsync(
+                "",
+                new StringContent(
+                    JsonConvert.SerializeObject(request),
+                    Encoding.UTF8,
+                    "application/json"
+                )
+            );
         }
     }
 }

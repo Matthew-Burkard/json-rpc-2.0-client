@@ -4,7 +4,7 @@ namespace JsonRpcClient.Objects
 {
     public class RpcRequest
     {
-        [JsonProperty("id", Required = Required.Always)]
+        [JsonProperty("id")]
         public object Id { get; set; }
         [JsonProperty("jsonrpc", Required = Required.Always)]
         public string JsonRpc { get; set; } = "2.0";
