@@ -1,6 +1,6 @@
 using System;
 using JsonRpcClient.Exceptions;
-using JsonRpcClient.JsonRpcObjects;
+using JsonRpcClient.Objects;
 using Newtonsoft.Json;
 
 namespace JsonRpcClient.Clients

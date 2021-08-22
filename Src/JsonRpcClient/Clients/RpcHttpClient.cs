@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using JsonRpcClient.JsonRpcObjects;
+using JsonRpcClient.Objects;
 using Newtonsoft.Json;
 
 namespace JsonRpcClient.Clients
@@ -20,6 +20,16 @@ namespace JsonRpcClient.Clients
                 .Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
+        protected async Task<object> Call(string method)
+        {
+            var request = new RpcRequest
+            {
+                Id = IRpcClient.GenId(),
+                Method = method
+            };
+            return await Call(request);
+        }
+
         protected async Task<object> Call(string method, object parameters)
         {
             var request = new RpcRequest
@@ -28,6 +38,11 @@ namespace JsonRpcClient.Clients
                 Method = method,
                 Params = parameters
             };
+            return await Call(request);
+        }
+
+        private async Task<object> Call(RpcRequest request)
+        {
             var response = await _client.PostAsync(
                 "",
                 new StringContent(
