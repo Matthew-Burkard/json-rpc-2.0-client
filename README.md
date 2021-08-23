@@ -64,7 +64,7 @@ namespace MathJsonRpcClient
             return JsonConvert.DeserializeObject<int>(v.ToString());
         }
 
-        public async Task<int> Divide(int a, int b)
+        public async Task<float> Divide(int a, int b)
         {
             var v = await Request("divide", new List<int>{a, b});
             return JsonConvert.DeserializeObject<float>(v.ToString());
