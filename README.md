@@ -44,9 +44,9 @@ namespace MathJsonRpcClient
         public void main(string[] args)
         {
             var client = new MathClient("http://localhost:5000/api/v1");
-            client.add(2, 3); // 5
-            client.subtract(2, 3); // -1
-            client.divide(3, 2); // 1.5
+            client.add(2, 3);
+            client.subtract(2, 3);
+            client.divide(3, 2);
         }
     }
 
