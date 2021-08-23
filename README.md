@@ -43,7 +43,7 @@ namespace MathJsonRpcClient
     {
         public void main(string[] args)
         {
-            var client = MathClient("http://localhost:5000/api/v1");
+            var client = new MathClient("http://localhost:5000/api/v1");
             client.add(2, 3); // 5
             client.subtract(2, 3); // -1
             client.divide(3, 2); // 1.5
@@ -81,7 +81,8 @@ them extends RpcError.
 ```c#
 public void main(string[] args)
 {
-    var client = MathClient("http://localhost:5000/api/v1");
+    var client = new MathClient("http://localhost:5000/api/v1");
+
     try
     {
         client.multiply(2, 3);
@@ -90,6 +91,7 @@ public void main(string[] args)
     {
         Console.WriteLine(e);
     }
+
     try
     {
         client.add("two", "three");
