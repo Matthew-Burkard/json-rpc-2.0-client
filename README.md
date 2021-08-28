@@ -7,26 +7,26 @@ Provides the classes needed to create JSON RPC 2.0 clients in C#.
 Supposing the JSON RPC server defines the methods "add", "subtract", and "divide", expecting requests like this:
 
 ```json
-[
-  {
-    "id": 1,
-    "method": "add",
-    "params": [2, 3],
-    "jsonrpc": "2.0"
-  },
-  {
-    "id": 2,
-    "method": "subtract",
-    "params": [2, 3],
-    "jsonrpc": "2.0"
-  },
-  {
-    "id": 3,
-    "method": "divide",
-    "params": [3, 2],
-    "jsonrpc": "2.0"
-  }
-]
+{
+  "id": 1,
+  "method": "add",
+  "params": [2, 3],
+  "jsonrpc": "2.0"
+}
+
+{
+  "id": 2,
+  "method": "subtract",
+  "params": [2, 3],
+  "jsonrpc": "2.0"
+}
+
+{
+  "id": 3,
+  "method": "divide",
+  "params": [3, 2],
+  "jsonrpc": "2.0"
+}
 ```
 
 Defining and using the corresponding client would look like this:
@@ -73,10 +73,12 @@ namespace MathJsonRpcClient
 }
 ```
 
+This client will form request bodies, send them to the server and return the result.
+
 ## Errors
 
-If the server responds with an error an RpcError. There is an RpcError for each standard JSON RPC 2.0 error, each of
-them extends RpcError.
+If the server responds with an error, an RpcError is thrown. There is an RpcError for each standard JSON RPC 2.0 error,
+each of them extends RpcError.
 
 ```c#
 public void main(string[] args)
