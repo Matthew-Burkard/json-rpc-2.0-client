@@ -10,6 +10,9 @@
         <PackageProjectUrl>https://gitlab.com/mburkard/json-rpc-2.0-client</PackageProjectUrl>
         <RepositoryUrl>https://gitlab.com/mburkard/json-rpc-2.0-client</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <Copyright>Copyright © 2021 Matthew Burkard</Copyright>
+        <PackageLicenseExpression>GNU GPLv3</PackageLicenseExpression>
+        <PackageTags>jsonrpc</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
