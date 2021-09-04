@@ -1,6 +1,6 @@
 # JSON RPC 2.0 Client
 
-Provides the classes needed to create JSON RPC 2.0 clients in C#.
+Provides classes for creating JSON RPC 2.0 clients in C#.
 
 ## Usage
 
