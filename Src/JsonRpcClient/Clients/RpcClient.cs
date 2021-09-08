@@ -18,7 +18,7 @@ namespace JsonRpcClient.Clients
         /*
          * Call an RPC method and get a response.
          */
-        protected async Task<object> Request(string method, object parameters)
+        protected async Task<object> SendRequest(string method, object parameters)
         {
             var request = new RpcRequest
             {
@@ -32,7 +32,7 @@ namespace JsonRpcClient.Clients
         /*
          * Call an RPC method and get a response.
          */
-        protected async Task<object> Request(string method)
+        protected async Task<object> SendRequest(string method)
         {
             var request = new RpcRequest
             {
@@ -45,7 +45,7 @@ namespace JsonRpcClient.Clients
         /*
          * Call an RPC method.
          */
-        protected async Task Notify(string method, object parameters)
+        protected async Task SendNotification(string method, object parameters)
         {
             var request = new RpcRequest
             {
@@ -58,7 +58,7 @@ namespace JsonRpcClient.Clients
         /*
          * Call an RPC method.
          */
-        protected async Task Notify(string method)
+        protected async Task SendNotification(string method)
         {
             var request = new RpcRequest { Method = method };
             await SendNotification(request);
