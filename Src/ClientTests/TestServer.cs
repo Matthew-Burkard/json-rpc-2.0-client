@@ -22,9 +22,9 @@ namespace ClientTests
 
         private static string TestRequest(string parameters)
         {
-            var request = JsonConvert.DeserializeObject<RpcRequest>(parameters);
+            var request = JsonConvert.DeserializeObject<RequestObject>(parameters);
             Console.WriteLine("TestRequest");
-            var resp = new RpcResponse {
+            var resp = new ResponseObject {
                 Id = request?.Id,
                 Result = new List<string> { "TestRequest" }
             };
@@ -33,9 +33,9 @@ namespace ClientTests
 
         private static string TestParamsRequest(string parameters)
         {
-            var request = JsonConvert.DeserializeObject<RpcRequest>(parameters);
+            var request = JsonConvert.DeserializeObject<RequestObject>(parameters);
             Console.WriteLine("TestParamsRequest");
-            var resp = new RpcResponse {
+            var resp = new ResponseObject {
                 Id = request?.Id,
                 Result = request?.Params
             };

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace JsonRpcClient.Objects
 {
-    public class RpcResponse
+    public class ResponseObject
     {
         [JsonProperty("id")]
         public object Id { get; set; }
@@ -11,6 +11,6 @@ namespace JsonRpcClient.Objects
         [JsonProperty("result")]
         public object Result { get; set; }
         [JsonProperty("error")]
-        public RpcError Error { get; set; }
+        public ErrorObject Error { get; set; }
     }
 }

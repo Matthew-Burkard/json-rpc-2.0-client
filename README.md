@@ -54,20 +54,17 @@ namespace MathJsonRpcClient
     {
         public async Task<int> Add(int a, int b)
         {
-            var v = await Request("add", new List<int>{a, b});
-            return JsonConvert.DeserializeObject<int>(v.ToString());
+            return await Call("add", new List<int>{a, b});
         }
 
         public async Task<int> Subtract(int a, int b)
         {
-            var v = await Request("subtract", new List<int>{a, b});
-            return JsonConvert.DeserializeObject<int>(v.ToString());
+            return await Call("subtract", new List<int>{a, b});
         }
 
         public async Task<float> Divide(int a, int b)
         {
-            var v = await Request("divide", new List<int>{a, b});
-            return JsonConvert.DeserializeObject<float>(v.ToString());
+            return await Call("divide", new List<int>{a, b});
         }
     }
 }

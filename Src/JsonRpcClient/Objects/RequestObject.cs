@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace JsonRpcClient.Objects
 {
-    public class RpcRequest
+    public class RequestObject
     {
         [JsonProperty("id")]
         public object Id { get; set; }

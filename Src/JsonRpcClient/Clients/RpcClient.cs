@@ -18,76 +18,54 @@ namespace JsonRpcClient.Clients
         /*
          * Call an RPC method and get a response.
          */
-        protected async Task<object> SendRequest(string method, object parameters)
+        protected async Task<object> Call(string method, bool isNotification = false)
         {
-            var request = new RpcRequest
+            var request = new RequestObject { Method = method };
+            if (!isNotification)
             {
-                Id = GenId(),
-                Method = method,
-                Params = parameters
-            };
-            return HandleJson(await SendRequest(request));
+                request.Id = GenId();
+                return HandleJson(await SendAndGetJson(JsonConvert.SerializeObject(request)));
+            }
+
+            await SendAndGetJson(JsonConvert.SerializeObject(request));
+            return null;
         }
 
         /*
          * Call an RPC method and get a response.
          */
-        protected async Task<object> SendRequest(string method)
+        protected async Task<object> Call(string method, object parameters, bool isNotification = false)
         {
-            var request = new RpcRequest
+            var request = new RequestObject { Method = method, Params = parameters };
+            if (!isNotification)
             {
-                Id = GenId(),
-                Method = method
-            };
-            return HandleJson(await SendRequest(request));
-        }
+                request.Id = GenId();
+                return HandleJson(await SendAndGetJson(JsonConvert.SerializeObject(request)));
+            }
 
-        /*
-         * Call an RPC method.
-         */
-        protected async Task SendNotification(string method, object parameters)
-        {
-            var request = new RpcRequest
-            {
-                Method = method,
-                Params = parameters
-            };
-            await SendNotification(request);
-        }
-
-        /*
-         * Call an RPC method.
-         */
-        protected async Task SendNotification(string method)
-        {
-            var request = new RpcRequest { Method = method };
-            await SendNotification(request);
+            await SendAndGetJson(JsonConvert.SerializeObject(request));
+            return null;
         }
 
         /*
          * Override with method to send a request and return the
          * response content.
          */
-        protected abstract Task<string> SendRequest(RpcRequest request);
-
-        /*
-         * Override with method to send a request.
-         */
-        protected abstract Task SendNotification(RpcRequest request);
+        protected abstract Task<string> SendAndGetJson(string request);
 
         private static object HandleJson(string data)
         {
-            var resp = JsonConvert.DeserializeObject<RpcResponse>(data);
+            var resp = JsonConvert.DeserializeObject<ResponseObject>(data);
             if (resp is { Error: { } })
             {
                 throw resp.Error.Code switch
                 {
-                    ParseError => new ParseError(),
-                    InvalidRequest => new InvalidRequest(),
-                    MethodNotFound => new MethodNotFound(),
-                    InvalidParams => new InvalidParams(),
-                    InternalError => new InternalError(),
-                    _ => new ServerError(resp.Error.Message)
+                    ParseError => new ParseError(resp.Error),
+                    InvalidRequest => new InvalidRequest(resp.Error),
+                    MethodNotFound => new MethodNotFound(resp.Error),
+                    InvalidParams => new InvalidParams(resp.Error),
+                    InternalError => new InternalError(resp.Error),
+                    _ => new ServerError(resp.Error)
                 };
             }
 

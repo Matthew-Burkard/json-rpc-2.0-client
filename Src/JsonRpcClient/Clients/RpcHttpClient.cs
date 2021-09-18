@@ -3,8 +3,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using JsonRpcClient.Objects;
-using Newtonsoft.Json;
 
 namespace JsonRpcClient.Clients
 {
@@ -15,34 +13,13 @@ namespace JsonRpcClient.Clients
         protected RpcHttpClient(string baseUri)
         {
             _client.BaseAddress = new Uri(baseUri);
-            _client.DefaultRequestHeaders
-                .Accept
-                .Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
-        protected override async Task<string> SendRequest(RpcRequest request)
+        protected override async Task<string> SendAndGetJson(string request)
         {
-            var response = await _client.PostAsync(
-                "",
-                new StringContent(
-                    JsonConvert.SerializeObject(request),
-                    Encoding.UTF8,
-                    "application/json"
-                )
-            );
+            var response = await _client.PostAsync("", new StringContent(request, Encoding.UTF8, "application/json"));
             return await response.Content.ReadAsStringAsync();
-        }
-
-        protected override async Task SendNotification(RpcRequest request)
-        {
-            await _client.PostAsync(
-                "",
-                new StringContent(
-                    JsonConvert.SerializeObject(request),
-                    Encoding.UTF8,
-                    "application/json"
-                )
-            );
         }
     }
 }

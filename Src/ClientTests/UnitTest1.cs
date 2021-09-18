@@ -47,24 +47,24 @@ namespace ClientTests
     {
         public async Task<List<string>> TestRequest()
         {
-            var v = await SendRequest("test_request");
+            var v = await Call("test_request");
             return JsonConvert.DeserializeObject<List<string>>(v.ToString()!);
         }
 
         public async Task<List<string>> TestParamsRequest(List<string> strings)
         {
-            var v = await SendRequest("test_params_request", strings);
+            var v = await Call("test_params_request", strings);
             return JsonConvert.DeserializeObject<List<string>>(v.ToString()!);
         }
 
         public async Task TestNotification()
         {
-            await SendNotification("test_notification");
+            await Call("test_notification", true);
         }
 
         public async Task TestParamsNotification(List<string> strings)
         {
-            await SendNotification("test_params_notification", strings);
+            await Call("test_params_notification", strings, true);
         }
     }
 }
