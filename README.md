@@ -74,8 +74,8 @@ This client will form request bodies, send them to the server and return the res
 
 ## Errors
 
-If the server responds with an error, an RpcError is thrown. There is an RpcError for each standard JSON RPC 2.0 error,
-each of them extends RpcError.
+If the server responds with an error, an RpcError is thrown.
+There is an RpcError for each standard JSON RPC 2.0 error, each of them extends RpcError.
 
 ```c#
 public void main(string[] args)
@@ -84,18 +84,18 @@ public void main(string[] args)
 
     try
     {
-        client.multiply(2, 3);
+        client.add("two", "three");
     }
-    catch (MethodNotFound e)
+    catch (InvalidParams e)
     {
         Console.WriteLine(e);
     }
 
     try
     {
-        client.add("two", "three");
+        client.divide(0, 0);
     }
-    catch (InvalidParams e)
+    catch (ServerError e)
     {
         Console.WriteLine(e);
     }
