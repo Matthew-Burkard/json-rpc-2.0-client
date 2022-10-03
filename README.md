@@ -38,34 +38,33 @@ using JsonRpcClient.Clients;
 using Newtonsoft.Json;
 
 namespace MathJsonRpcClient
+
+public class MathClientDriver()
 {
-    public class MathClientDriver()
+    public void main(string[] args)
     {
-        public void main(string[] args)
-        {
-            var client = new MathClient("http://localhost:5000/api/v1");
-            client.add(2, 3);
-            client.subtract(2, 3);
-            client.divide(3, 2);
-        }
+        var client = new MathClient("http://localhost:5000/api/v1");
+        client.add(2, 3);
+        client.subtract(2, 3);
+        client.divide(3, 2);
+    }
+}
+
+public class MathClient : RpcHttpClient
+{
+    public async Task<int> Add(int a, int b)
+    {
+        return await Call("add", new List<int>{a, b});
     }
 
-    public class MathClient : RpcHttpClient
+    public async Task<int> Subtract(int a, int b)
     {
-        public async Task<int> Add(int a, int b)
-        {
-            return await Call("add", new List<int>{a, b});
-        }
+        return await Call("subtract", new List<int>{a, b});
+    }
 
-        public async Task<int> Subtract(int a, int b)
-        {
-            return await Call("subtract", new List<int>{a, b});
-        }
-
-        public async Task<float> Divide(int a, int b)
-        {
-            return await Call("divide", new List<int>{a, b});
-        }
+    public async Task<float> Divide(int a, int b)
+    {
+        return await Call("divide", new List<int>{a, b});
     }
 }
 ```
@@ -79,25 +78,24 @@ There is an RpcError for each standard JSON RPC 2.0 error, each of them extends 
 
 ```c#
 public void main(string[] args)
+
+var client = new MathClient("http://localhost:5000/api/v1");
+
+try
 {
-    var client = new MathClient("http://localhost:5000/api/v1");
+    client.add("two", "three");
+}
+catch (InvalidParams e)
+{
+    Console.WriteLine(e);
+}
 
-    try
-    {
-        client.add("two", "three");
-    }
-    catch (InvalidParams e)
-    {
-        Console.WriteLine(e);
-    }
-
-    try
-    {
-        client.divide(0, 0);
-    }
-    catch (ServerError e)
-    {
-        Console.WriteLine(e);
-    }
+try
+{
+    client.divide(0, 0);
+}
+catch (ServerError e)
+{
+    Console.WriteLine(e);
 }
 ```
