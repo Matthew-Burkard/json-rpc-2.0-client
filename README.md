@@ -40,19 +40,19 @@ public class MathClient : RpcHttpClient
     {
     }
 
-    public async Task<int> Add(int a, int b)
+    public async Task<long> Add(int a, int b)
     {
-        return (int)(long) (await Call("add", new List<int> {a, b}) ?? throw new InvalidOperationException());
+        return (long) (await Call("add", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 
-    public async Task<int> Subtract(int a, int b)
+    public async Task<long> Subtract(int a, int b)
     {
-        return (int)(long) (await Call("subtract", new List<int> {a, b}) ?? throw new InvalidOperationException());
+        return (long) (await Call("subtract", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 
-    public async Task<float> Divide(int a, int b)
+    public async Task<double> Divide(int a, int b)
     {
-        return (float)(double) (await Call("divide", new List<int> {a, b}) ?? throw new InvalidOperationException());
+        return (double) (await Call("divide", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 }
 ```
