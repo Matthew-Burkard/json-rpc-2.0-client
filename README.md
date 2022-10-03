@@ -32,39 +32,27 @@ Supposing the JSON RPC server defines the methods "add", "subtract", and "divide
 Defining and using the corresponding client would look like this:
 
 ```c#
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using JsonRpcClient.Clients;
-using Newtonsoft.Json;
-
-namespace MathJsonRpcClient
-
-public class MathClientDriver()
-{
-    public void main(string[] args)
-    {
-        var client = new MathClient("http://localhost:5000/api/v1");
-        client.add(2, 3);
-        client.subtract(2, 3);
-        client.divide(3, 2);
-    }
-}
 
 public class MathClient : RpcHttpClient
 {
+    public MathClient(string baseUri) : base(baseUri)
+    {
+    }
+
     public async Task<int> Add(int a, int b)
     {
-        return await Call("add", new List<int>{a, b});
+        return (int)(long) (await Call("add", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 
     public async Task<int> Subtract(int a, int b)
     {
-        return await Call("subtract", new List<int>{a, b});
+        return (int)(long) (await Call("subtract", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 
     public async Task<float> Divide(int a, int b)
     {
-        return await Call("divide", new List<int>{a, b});
+        return (float)(double) (await Call("divide", new List<int> {a, b}) ?? throw new InvalidOperationException());
     }
 }
 ```
@@ -77,8 +65,6 @@ If the server responds with an error, an RpcError is thrown.
 There is an RpcError for each standard JSON RPC 2.0 error, each of them extends RpcError.
 
 ```c#
-public void main(string[] args)
-
 var client = new MathClient("http://localhost:5000/api/v1");
 
 try
