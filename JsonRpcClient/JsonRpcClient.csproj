@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <PackageTags>jsonrpc</PackageTags>
         <PackageId>JsonRpcClient</PackageId>
-        <Version>4.0.2</Version>
+        <Version>5.0.0</Version>
         <Authors>Matthew Burkard</Authors>
         <Description>Provides classes for creating JSON RPC 2.0 clients in C#.</Description>
         <PackageProjectUrl>https://gitlab.com/mburkard/json-rpc-2.0-client</PackageProjectUrl>

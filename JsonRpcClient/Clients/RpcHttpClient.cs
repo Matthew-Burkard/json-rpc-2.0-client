@@ -18,4 +18,9 @@ public class RpcHttpClient : RpcClient
         var response = await _client.PostAsync("", new StringContent(request, Encoding.UTF8, "application/json"));
         return await response.Content.ReadAsStringAsync();
     }
+
+    protected override async Task SendJson(string request)
+    {
+        await _client.PostAsync("", new StringContent(request, Encoding.UTF8, "application/json"));
+    }
 }

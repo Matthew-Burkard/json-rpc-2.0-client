@@ -24,7 +24,7 @@ public abstract class RpcClient
             return HandleJson(await SendAndGetJson(JsonConvert.SerializeObject(request)));
         }
 
-        await SendAndGetJson(JsonConvert.SerializeObject(request));
+        await SendJson(JsonConvert.SerializeObject(request));
         return null;
     }
 
@@ -40,7 +40,7 @@ public abstract class RpcClient
             return HandleJson(await SendAndGetJson(JsonConvert.SerializeObject(request)));
         }
 
-        await SendAndGetJson(JsonConvert.SerializeObject(request));
+        await SendJson(JsonConvert.SerializeObject(request));
         return null;
     }
 
@@ -49,6 +49,11 @@ public abstract class RpcClient
      * response content.
      */
     protected abstract Task<string> SendAndGetJson(string request);
+
+    /*
+     * Override with method to send a notification.
+     */
+    protected abstract Task SendJson(string request);
 
     private static object? HandleJson(string data)
     {

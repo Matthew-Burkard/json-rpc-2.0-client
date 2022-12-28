@@ -1,8 +1,10 @@
 # JSON RPC 2.0 Client
 
 Provides classes for creating JSON RPC 2.0 clients in C#.
+By default this supports HTTP with `RpcHttpClient` and WebSockets with `RpcWsClient`.
+Support for other transport protocols can be added by writing a class that extends `RpcClient`.
 
-## Usage
+## Usage Example
 
 Supposing the JSON RPC server defines the methods "add", "subtract", and "divide", expecting requests like this:
 

@@ -15,4 +15,10 @@ public class RpcTestClient : RpcClient
         var requestObject = JsonConvert.DeserializeObject<RequestObject>(request) ?? throw new InternalError();
         return Task.FromResult(_server.Methods[requestObject.Method](request));
     }
+
+    protected override Task SendJson(string request)
+    {
+        var requestObject = JsonConvert.DeserializeObject<RequestObject>(request) ?? throw new InternalError();
+        return Task.FromResult(_server.Methods[requestObject.Method](request));
+    }
 }
