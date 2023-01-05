@@ -29,11 +29,17 @@ public class RpcWsClient : RpcClient
         var buffer = new ArraySegment<byte>(message);
         await _client.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
 
-        var receivedBuffer = new ArraySegment<byte>(new byte[1024]);
-        var result = await _client.ReceiveAsync(receivedBuffer, CancellationToken.None);
-        return receivedBuffer.Array != null
-            ? Encoding.UTF8.GetString(receivedBuffer.Array, 0, result.Count)
-            : "";
+        var receiveBuffer = new ArraySegment<byte>(new byte[1024]);
+        var response = "";
+        WebSocketReceiveResult result;
+        do
+        {
+            result = await _client.ReceiveAsync(receiveBuffer, CancellationToken.None);
+            // Decode the response from the server and append it to the previous responses.
+            response += Encoding.UTF8.GetString(receiveBuffer.Array ?? Array.Empty<byte>(), 0, result.Count);
+        } while (!result.EndOfMessage);
+
+        return response;
     }
 
     protected override async Task SendJson(string request)
