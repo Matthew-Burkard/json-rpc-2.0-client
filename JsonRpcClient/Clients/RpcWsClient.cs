@@ -13,6 +13,11 @@ public class RpcWsClient : RpcClient
         _baseUri = baseUri;
     }
 
+    public void SetRequestHeader(string headerName, string? headerValue)
+    {
+        _client.Options.SetRequestHeader(headerName, headerValue);
+    }
+
     public async Task Connect()
     {
         await _client.ConnectAsync(new Uri(_baseUri), CancellationToken.None);
